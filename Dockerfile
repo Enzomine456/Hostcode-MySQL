@@ -1,39 +1,29 @@
-# Use imagem oficial do PHP com Apache
+# Base PHP 8.2 com Apache
 FROM php:8.2-apache
 
 LABEL maintainer="seu-email@exemplo.com"
 LABEL project="HostCode MySQL CMS"
 LABEL description="Docker PHP + Apache para HostCode CMS com suporte MySQL e funcionalidades extras"
 
-# Atualiza e instala dependências necessárias para extensões e utilitários
+# Atualizar e instalar dependências para extensões PHP comuns em CMS
 RUN apt-get update && apt-get install -y \
-    libzip-dev \
-    zip unzip \
-    libicu-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libxml2-dev \
-    libcurl4-openssl-dev \
-    mariadb-client \
-    git \
+    libzip-dev zip unzip libicu-dev libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev libcurl4-openssl-dev mariadb-client git \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar extensões PHP necessárias para CMS comum
+# Configurar e instalar extensões PHP necessárias
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql mbstring zip gd xml intl curl opcache
 
-# Habilitar mod_rewrite do Apache para urls amigáveis
+# Ativar mod_rewrite para URLs amigáveis
 RUN a2enmod rewrite
 
-# Permitir uso de .htaccess para configurações Apache
+# Permitir uso de .htaccess para configs do Apache
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
-# Instalar Composer para gerenciar dependências PHP
+# Copiar o Composer para dentro do container (para gerenciar dependências PHP)
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Configurações PHP para desenvolvimento e produção
+# Configurações PHP customizadas (ativar erros, aumentar limites, opcache etc)
 RUN { \
     echo 'display_errors=On'; \
     echo 'display_startup_errors=On'; \
@@ -51,35 +41,41 @@ RUN { \
     echo 'opcache.revalidate_freq=2'; \
 } > /usr/local/etc/php/conf.d/custom.ini
 
-# Criar diretórios para logs do PHP e dar permissão para o usuário www-data
+# Criar diretório para logs PHP e garantir permissões
 RUN mkdir -p /var/log/php && chown -R www-data:www-data /var/log/php
 
-# ----------------------------------------------
-# ATENÇÃO:
-# Para que o comando COPY funcione, você deve executar
-# o build DO LADO ONDE ESTÁ A PASTA 'src', assim:
+# --------------------------------------------------
+# ATENÇÃO IMPORTANTE SOBRE O COPY ./src/ /var/www/html/
 #
-# Estrutura de pastas esperada:
-# .
-# ├── Dockerfile
-# └── src/
-#     ├── index.php
-#     └── ...
+# 1) A pasta `src` deve estar na MESMA pasta onde este Dockerfile está.
+#    Exemplo:
 #
-# Comando para build:
-# docker build -t hostcode-cms .
+#    /HostCodeProject
+#       |-- Dockerfile
+#       |-- src/
+#           |-- index.php
+#           |-- outros arquivos
 #
-# Se não fizer isso, vai dar erro "src: not found"
-# ----------------------------------------------
+# 2) Você deve rodar o build DO LADO ONDE ESTÁ O DOCKERFILE E A PASTA src
+#    Exemplo de comando:
+#
+#    docker build -t hostcode-cms .
+#
+#    (o ponto indica que o contexto do build é a pasta atual, incluindo a pasta src)
+#
+# 3) Se a pasta src estiver fora, ou Dockerfile em outra pasta, o COPY vai falhar.
+#    Ajuste o caminho do COPY ou o contexto do build.
+#
+# --------------------------------------------------
 
-# Copiar código fonte do HostCode CMS para o Apache
+# Copiar código fonte do HostCode CMS para dentro do container, diretório do Apache
 COPY ./src/ /var/www/html/
 
-# Ajustar permissões do diretório web para www-data
+# Ajustar permissões para o usuário www-data (apache)
 RUN chown -R www-data:www-data /var/www/html
 
-# Expor a porta 80 para acesso HTTP
+# Expor porta 80 para acessar pelo navegador
 EXPOSE 80
 
-# Executar Apache em foreground para manter container rodando
+# Comando padrão para rodar o Apache em foreground
 CMD ["apache2-foreground"]
