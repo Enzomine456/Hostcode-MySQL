@@ -1,7 +1,6 @@
 # Use imagem oficial do PHP com Apache
 FROM php:8.2-apache
 
-# Metadados do container
 LABEL maintainer="seu-email@exemplo.com"
 LABEL project="HostCode MySQL CMS"
 LABEL description="Docker PHP + Apache para HostCode CMS com suporte MySQL e funcionalidades extras"
@@ -28,13 +27,13 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
 # Habilitar mod_rewrite do Apache para urls amigáveis
 RUN a2enmod rewrite
 
-# Copiar configuração customizada do Apache para permitir .htaccess (se quiser usar)
+# Permitir uso de .htaccess para configurações Apache
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
-# Instalar Composer (gerenciador de dependências PHP)
+# Instalar Composer para gerenciar dependências PHP
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Configuração do PHP para desenvolvimento (exemplo, pode ser alterada)
+# Configurações PHP para desenvolvimento e produção
 RUN { \
     echo 'display_errors=On'; \
     echo 'display_startup_errors=On'; \
@@ -52,18 +51,35 @@ RUN { \
     echo 'opcache.revalidate_freq=2'; \
 } > /usr/local/etc/php/conf.d/custom.ini
 
-# Criar diretórios para logs do PHP e Apache, com permissões
-RUN mkdir -p /var/log/php && \
-    chown -R www-data:www-data /var/log/php
+# Criar diretórios para logs do PHP e dar permissão para o usuário www-data
+RUN mkdir -p /var/log/php && chown -R www-data:www-data /var/log/php
 
-# Copiar o código fonte do HostCode CMS para o diretório padrão do Apache
+# ----------------------------------------------
+# ATENÇÃO:
+# Para que o comando COPY funcione, você deve executar
+# o build DO LADO ONDE ESTÁ A PASTA 'src', assim:
+#
+# Estrutura de pastas esperada:
+# .
+# ├── Dockerfile
+# └── src/
+#     ├── index.php
+#     └── ...
+#
+# Comando para build:
+# docker build -t hostcode-cms .
+#
+# Se não fizer isso, vai dar erro "src: not found"
+# ----------------------------------------------
+
+# Copiar código fonte do HostCode CMS para o Apache
 COPY ./src/ /var/www/html/
 
-# Ajustar permissões do diretório web
+# Ajustar permissões do diretório web para www-data
 RUN chown -R www-data:www-data /var/www/html
 
-# Expor porta 80 para web
+# Expor a porta 80 para acesso HTTP
 EXPOSE 80
 
-# Definir ponto de entrada padrão (Apache em foreground)
+# Executar Apache em foreground para manter container rodando
 CMD ["apache2-foreground"]
