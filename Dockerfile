@@ -1,11 +1,15 @@
 FROM php:8.2-apache
 
-# Ativar o módulo rewrite do Apache
+# Ativar módulo rewrite do Apache
 RUN a2enmod rewrite
 
 # Definir ServerName para suprimir aviso do Apache
 RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
     && a2enconf servername
+
+# Ajustar nível de log para WARN (menos mensagens notice)
+RUN echo "LogLevel warn" > /etc/apache2/conf-available/loglevel.conf \
+    && a2enconf loglevel
 
 # Instalar dependências e extensões PHP necessárias
 RUN apt-get update && apt-get install -y \
@@ -53,5 +57,5 @@ RUN chown -R www-data:www-data /var/www/html
 # Expor porta 80 para o container
 EXPOSE 80
 
-# Comando padrão para rodar Apache no foreground (mantendo o container ativo)
+# Comando para rodar Apache em foreground (necessário no Docker)
 CMD ["apache2-foreground"]
