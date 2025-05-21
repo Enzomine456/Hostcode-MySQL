@@ -1,14 +1,13 @@
-# Usar imagem oficial PHP 8.2 com Apache
 FROM php:8.2-apache
 
-# Ativar o módulo rewrite do Apache (muito usado em CMS)
+# Ativar o módulo rewrite do Apache
 RUN a2enmod rewrite
 
 # Definir ServerName para suprimir aviso do Apache
 RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
     && a2enconf servername
 
-# Instalar dependências para extensões PHP e ferramentas básicas
+# Instalar dependências e extensões PHP necessárias
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
@@ -24,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql zip curl xml opcache
 
-# Instalar Composer globalmente
+# Instalar composer globalmente
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Configurações customizadas do PHP
@@ -45,14 +44,14 @@ RUN { \
     echo 'opcache.revalidate_freq=2'; \
 } > /usr/local/etc/php/conf.d/custom.ini
 
-# Criar diretório para logs PHP e dar permissão para www-data
+# Criar diretório para logs PHP e setar permissões
 RUN mkdir -p /var/log/php && chown -R www-data:www-data /var/log/php
 
-# Ajustar permissões do diretório padrão do Apache (caso o volume com o código esteja montado)
+# Ajustar permissões do diretório padrão do Apache
 RUN chown -R www-data:www-data /var/www/html
 
-# Expor porta 80
+# Expor porta 80 para o container
 EXPOSE 80
 
-# Comando padrão para rodar Apache no primeiro plano
+# Comando padrão para rodar Apache no foreground (mantendo o container ativo)
 CMD ["apache2-foreground"]
