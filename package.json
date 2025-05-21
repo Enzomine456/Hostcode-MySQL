@@ -1,10 +1,10 @@
 {
   "name": "Hostcode-MySQL",
   "version": "7.2.1-beta",
-  "description": "Projeto b2evolution: gerenciamento de módulos com Grunt para tarefas automatizadas CSS/JS.",
+  "description": "Projeto :Hostcode-MySQL gerenciamento de módulos com Grunt para tarefas automatizadas CSS/JS.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Enzomine456/Hostcode-MySQL.git"
+    "url": "https://github.com/b2evolution/b2evolution.git"
   },
   "author": "Enzo Luis Dev",
   "license": "GPL-2.0",
@@ -20,8 +20,30 @@
   "scripts": {
     "start": "node index.js",
     "build": "grunt build",
-    "lint": "grunt lint",
+    "lint": "grunt eslint",
     "watch": "grunt watch",
+    "test": "grunt test",
+    "clean": "grunt clean"
+  },
+  "dependencies": {
+    "diff": ">=3.5.0",
+    "npm": "^6.14.7"
+  },
+  "devDependencies": {
+    "grunt": "^1.2.1",
+    "grunt-autoprefixer": "^3.0.3",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-eslint": "^23.0.0",
+    "grunt-markdown": "^0.7.0",
+    "grunt-sass": "^3.1.0"
+  }
+}
+,
     "test": "grunt test",
     "clean": "grunt clean"
   },
