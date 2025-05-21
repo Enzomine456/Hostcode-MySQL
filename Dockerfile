@@ -1,22 +1,33 @@
+# Usar imagem oficial PHP 8.2 com Apache
 FROM php:8.2-apache
 
-LABEL maintainer="seu-email@exemplo.com"
-LABEL project="HostCode MySQL CMS"
-LABEL description="Docker PHP + Apache para HostCode CMS com suporte MySQL e funcionalidades extras"
-
-RUN apt-get update && apt-get install -y \
-    libzip-dev zip unzip libicu-dev libpng-dev libjpeg-dev libfreetype6-dev libonig-dev libxml2-dev libcurl4-openssl-dev mariadb-client git \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) mysqli pdo pdo_mysql mbstring zip gd xml intl curl opcache
-
+# Ativar o módulo rewrite do Apache (muito usado em CMS)
 RUN a2enmod rewrite
 
-RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+# Definir ServerName para suprimir aviso do Apache
+RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
+    && a2enconf servername
 
+# Instalar dependências para extensões PHP e ferramentas básicas
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    unzip \
+    git \
+    zip \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql zip curl xml opcache
+
+# Instalar Composer globalmente
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Configurações customizadas do PHP
 RUN { \
     echo 'display_errors=On'; \
     echo 'display_startup_errors=On'; \
@@ -34,13 +45,14 @@ RUN { \
     echo 'opcache.revalidate_freq=2'; \
 } > /usr/local/etc/php/conf.d/custom.ini
 
+# Criar diretório para logs PHP e dar permissão para www-data
 RUN mkdir -p /var/log/php && chown -R www-data:www-data /var/log/php
 
-# Removido o COPY ./src/ /var/www/html/ para evitar erro
-
-# Ajustar permissões do diretório padrão do Apache, caso use volume externo
+# Ajustar permissões do diretório padrão do Apache (caso o volume com o código esteja montado)
 RUN chown -R www-data:www-data /var/www/html
 
+# Expor porta 80
 EXPOSE 80
 
+# Comando padrão para rodar Apache no primeiro plano
 CMD ["apache2-foreground"]
