@@ -22,7 +22,6 @@
     "build": "grunt build",
     "lint": "grunt eslint",
     "watch": "grunt watch",
-    "test": "grunt test",
     "clean": "grunt clean"
   },
   "dependencies": {
