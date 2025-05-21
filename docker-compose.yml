@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: hostcode-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    environment:
+      # Variáveis de ambiente para seu CMS (exemplo)
+      DB_HOST: db
+      DB_NAME: hostcode_db
+      DB_USER: hostcode_user
+      DB_PASS: hostcode_pass
+    depends_on:
+      - db
+    networks:
+      - hostcode-net
+
+  db:
+    image: mysql:8.0
+    container_name: hostcode-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass_123
+      MYSQL_DATABASE: hostcode_db
+      MYSQL_USER: hostcode_user
+      MYSQL_PASSWORD: hostcode_pass
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - hostcode-net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: hostcode-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root_pass_123
+    depends_on:
+      - db
+    networks:
+      - hostcode-net
+
+volumes:
+  db-data:
+
+networks:
+  hostcode-net:
+    driver: bridge
