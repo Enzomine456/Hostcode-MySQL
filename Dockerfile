@@ -1,40 +1,25 @@
 FROM php:8.2-apache
 
-# Ativar módulo rewrite do Apache
-RUN a2enmod rewrite
-
-# Definir ServerName para suprimir aviso do Apache
-RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
-    && a2enconf servername
-
-# Ajustar nível de log para WARN (menos mensagens notice)
-RUN echo "LogLevel warn" > /etc/apache2/conf-available/loglevel.conf \
-    && a2enconf loglevel
-
-# Instalar dependências e extensões PHP necessárias
+# Atualiza e instala extensões necessárias (exemplo: mysqli, pdo_mysql, zip)
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     unzip \
-    git \
-    zip \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libxml2-dev \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd mbstring pdo pdo_mysql zip curl xml opcache
+    && docker-php-ext-install mysqli pdo pdo_mysql zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Instalar composer globalmente
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Define ServerName para Apache (remove aviso no log)
+RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
+    && a2enconf servername
 
-# Configurações customizadas do PHP
+# Ajusta nível do log do Apache para warn (menos verboso)
+RUN echo "LogLevel warn" > /etc/apache2/conf-available/loglevel.conf \
+    && a2enconf loglevel
+
+# Configura PHP com parâmetros customizados para desenvolvimento
 RUN { \
     echo 'display_errors=On'; \
     echo 'display_startup_errors=On'; \
-    echo 'error_reporting=E_ALL'; \
+    echo 'error_reporting=E_ALL & ~E_NOTICE'; \
     echo 'log_errors=On'; \
     echo 'error_log=/var/log/php_errors.log'; \
     echo 'upload_max_filesize=50M'; \
@@ -48,14 +33,18 @@ RUN { \
     echo 'opcache.revalidate_freq=2'; \
 } > /usr/local/etc/php/conf.d/custom.ini
 
-# Criar diretório para logs PHP e setar permissões
+# Cria pasta de logs do PHP e define permissões
 RUN mkdir -p /var/log/php && chown -R www-data:www-data /var/log/php
 
-# Ajustar permissões do diretório padrão do Apache
+# Copia seu código fonte para o diretório padrão do Apache
+# IMPORTANTE: ajuste o caminho conforme sua estrutura real
+COPY ./src/ /var/www/html/
+
+# Ajusta permissões para www-data (usuário do Apache)
 RUN chown -R www-data:www-data /var/www/html
 
-# Expor porta 80 para o container
+# Expõe a porta 80 para acesso HTTP
 EXPOSE 80
 
-# Comando para rodar Apache em foreground (necessário no Docker)
+# Comando padrão para rodar o Apache no foreground
 CMD ["apache2-foreground"]
