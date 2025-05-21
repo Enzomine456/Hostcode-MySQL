@@ -1,0 +1,1431 @@
+/**
+ * These are the generic styles that are common to "all" Bootstrap skins.
+ *
+ * This is for the blog NAVIGATION and global page layout. See item_base.css for the post CONTENT styles.
+ *
+ * Override this with style.css in your skin folder.
+ */
+
+// ----- WIDGETS -----
+
+// About Author widget:
+@import "_about_author_widget.module.less";
+
+// Universal item list widget & Recent posts widget:
+@import "_universal_item_list_widget.module.less";
+
+// Media Index widget:
+@import "_coll_media_index_widget.module.less";
+
+// User Avatars (User List) widget:
+@import "_user_avatars_widget.module.less";
+
+// Organization Members widget:
+@import "_org_members_widget.module.less";
+
+// Item Tags widget:
+@import "_item_tags_widget.module.less";
+
+// Item Workflow widget:
+@import "_item_workflow_widget.module.less";
+
+// Checklist Items widget:
+@import "_item_checklist_lines_widget.module.less";
+
+// ----- PLUGINS -----
+
+// CSS overrides for "HTML 5 VideoJS Player" plugin:
+@import "inc/video-js-overrides.inc.less";
+
+
+// ----- FORMS -----
+
+// Search form:
+@import "_search_form.module.less";
+
+
+// ----- ALL PURPOSE MODULES (can be in templates in multiple widgets) -----
+
+// Tiles style 2
+@import "_evo_tile_2.module.less";
+
+// -----
+
+// Thumblist style
+@import "_evo_thumblist.module.less";
+
+// -----
+
+
+// Rating Summary for all comments of the selected post on disp=single:
+@import "inc/star_rating.inc.less";
+
+// This can be used in sub-containers and multiple column widgets to control display of children widgets:
+div.children-widgets-inline > div.evo_widget {
+	display: inline-block;
+	margin-right: 4px;
+}
+// This can be used in individual widgets to hide border:
+.evo_widget.widget-no-border {
+	border: none;
+	box-shadow: none;
+}
+
+.border-radius (@radius: 4px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	-ms-border-radius: @radius;
+	-o-border-radius: @radius;
+	border-radius: @radius;
+}
+
+.evo_container__footer {
+	margin-bottom: 10px;
+}
+
+// MILOS > Intro posts style padding alignment
+main .well {
+	padding: 15px 15px 5px 15px;
+	header .small.text-muted {
+		margin: 4px 0px 10px 0px;
+		a {
+			color: inherit;
+		}
+	}
+}
+.post_tags {
+	margin: 15px 0px 10px 0px;
+	> a, > span {
+		display: inline-block;
+		padding: 3px 5px;
+		margin-bottom: 5px;
+		background: #eee;
+		.border-radius;
+		color: black;
+		margin-right: 3px;
+		&:hover {
+			text-decoration: none;
+			background: #ddd;
+		}
+	}
+	> a::before {
+		font-family: FontAwesome;
+		content: '\f02b \00a0 ';
+		color: #aaa;
+	}
+	> span {
+		a {
+			color: black;
+		}
+		span.fa {
+			font-size: inherit;
+			color: #aaa;
+		}
+	}
+}
+.post_comments_link {
+	margin-bottom: 10px;
+}
+
+.more_link_button {
+	margin-bottom: 10px;
+}
+
+a.permalink_right
+{
+	float: right;
+	margin: 0 0 0 1em;
+}
+
+p.baseline a.contact_link,
+a.contact_link {
+	text-decoration: underline;
+}
+
+// Calendar plugin:
+table.bCalendarTable caption {
+	font-size: 105%;
+	font-weight: bold;
+	margin: auto;
+	padding: 3px 0;
+	white-space: nowrap;
+	text-align: center;
+}
+table.bCalendarTable {
+	margin: 15px auto;
+	font-size: 77%;
+	border-collapse: separate;
+	border-spacing: 0px;
+}
+tr.bCalendarRow {
+	text-align: center;
+}
+th.bCalendarHeaderCell {
+	color: #999;
+	font-size: 84%;
+	width: 4ex;
+}
+td.bCalendarCell,
+td.bCalendarLinkPost,
+td.bCalendarEmptyCell {
+	width: 4ex;
+	padding: 2px 0;
+}
+.bCalendarLinkPost {
+	font-weight: bold;
+}
+#bCalendarToday {
+	background-color: #f6eeee;
+	border: 1px solid #900;
+	.border-radius;
+}
+
+/* TODO: not very unique IDs! (prev/next) - used in Calendar at least*/
+td#prev,
+td#next {
+	font-weight: bold;
+	font-size: 105%;
+	padding: .5ex;
+	white-space: nowrap;
+}
+td#prev a,
+td#next a {
+	padding: .5ex;
+}
+td#prev {
+	text-align:left;
+}
+td#next {
+	text-align:right;
+}
+
+
+div.powered_by {
+	margin: 16px 0 0 0;
+	text-align: center;
+}
+div.error_404,
+div.error_403,
+div.error_additional_content {
+	margin: 1em;
+}
+
+
+// Styles for comments
+.comment_recommended_option{  // ???
+	color: #0a0;
+}
+
+// List elements in comment panels
+.evo_comment ul {
+	list-style-position: inside;
+	// Here we need only bottom margin to match general concept of separating elements (e-g: p tags have 10px bottom margin as well)
+	margin: 0 0 10px 0px;
+	ul {
+		margin: 0 0 0 20px;
+	}
+}
+.evo_comment_rating {
+	margin: 3px;
+}
+.evo_comment__list_title {
+	float: left;
+}
+.evo_comment__meta_info {
+	float: right;
+	padding: 20px 0 10px 0;
+}
+// Display round avatars:
+.evo_content_block .evo_comment_avatar img {
+	margin: 4px 10px 10px 0;
+	float:left;
+	border-radius: 50%;
+}
+
+/*
+.bCommentAvatarCenter {  // This is used in tooltips for anonymous users
+	margin: 0 auto;
+	padding: 2px;
+	border:1px solid #ccc;
+}
+*/
+
+div.moderation_msg
+{
+	margin: 1ex 2ex;
+	padding: 0 1ex;
+	border: 1px dotted #fa9;
+	color: #e70;
+}
+
+div.feedback_feed_msg {
+	margin: 2em 2ex;
+	text-align: center;
+}
+
+a.comment_reply.active{
+	color: #FF0000;
+}
+a.comment_reply_current {
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	color: #FF0000;
+	margin: 10px 0;
+}
+a.comment_reply_current:hover {
+	color: #0066CC;
+}
+
+.comment_notification {
+	text-align: center;
+}
+.comment_notification span {
+	vertical-align: middle;
+}
+
+// TextArea element
+textarea.form_textarea_input {
+	width: 100%;
+}
+
+.comment_viewing_disabled_msg,
+.comment_posting_disabled_msg {
+	text-align: center;
+	background-color: #fec;
+	padding: 1px;
+	margin: 4px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.evo_login_dialog_footer {
+	margin: 2em auto 1em;
+	text-align: center;
+	font-size: 78%;
+}
+.evo_login_dialog_standard_link {
+	margin: 1em;
+	text-align: center;
+}
+
+// Avatar widget
+div.widget_core_user_profile_pics {
+	// margin-top: 1em;
+	// margin-bottom: 1em;
+	text-align:center;
+}
+
+// Profile menu link widget alignment issue fix
+.evo_widget_basic_menu_link_myprofile ul li a img {
+	vertical-align: middle;
+	.border-radius;
+}
+
+// Search widget
+div.compact_search_form {
+	white-space: nowrap;
+}
+div.compact_search_form input.search_field {
+	width: 100px;
+	margin-right: 3px;
+}
+div.container_menu_top div.widget_core_coll_search_form {
+	float: right;
+}
+div.container_menu_top input.search_field {
+	width: 160px;	// There is typically more space here
+}
+div.extended_search_form {
+	div[class^='col-'] {
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+}
+
+// User login/register widget
+.widget_core_user_login {
+	.control-buttons {
+		width: 100%;
+		padding: 0;
+		margin-bottom: -15px;
+	}
+}
+.widget_core_user_greetings {
+	.greeting, .avatar {
+		vertical-align: middle;
+	}
+	.user_group, .user_level {
+		color: #999;
+	}
+	p {
+		margin: 10px 0;
+	}
+	.panel-body p:last-child {
+		margin: 10px 0 0;
+	}
+}
+
+// User Profile Picture widget
+.widget_core_user_profile_pics img {
+	max-width: 100%;
+	height: auto;
+}
+
+.action_icon {
+	margin: 0 2px;
+	font-weight: bold;
+	// Fix alignment for flag buttons:
+	&.evo_post_flag_btn {
+		margin-left: 0;
+	}
+}
+.title_action_icons {
+	float: right;
+}
+.title_action_icons a.action_icon {
+	padding-left: 5px;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: normal;
+}
+
+// Ajax form
+div.section_requires_javascript p.ajax-loader {
+	text-align: center;
+	margin-top: 1em;
+}
+
+// Results table
+div.results {
+	width: 100%;
+	overflow: auto;
+}
+
+.pager { // Overrules BS original style: separates disp=single navigation links
+	margin-bottom: 16px;
+	li a {
+		margin-bottom: 4px;
+	}
+}
+
+// Styles for edit-screen instructions
+.evo_instruction {
+	margin: 0 0 20px;
+}
+
+// Styles for in-skin editing
+form.inskin{
+	padding: 10px;
+}
+form.inskin fieldset{
+	border: none;
+	padding: 0;
+	margin: 10px 0 0;
+}
+form.inskin .edit_fieldgroup .label{
+	display: none;
+}
+form.inskin .edit_area textarea{
+	width: 100%;
+}
+
+
+// Categories selection table:
+#itemform_categories .extracats {
+	max-height: 310px;
+	overflow: auto;
+}
+table.catselect {
+	border-spacing:0;
+	width:100%;
+	border: 1px solid #bbb;
+	thead tr th {
+		padding: .3ex 1ex;
+		background-color: #d4d4d4;
+		border-bottom: 1px solid #bbb;
+		color: #333;
+	}
+	> thead:first-child > tr:first-child > th {
+		border-top: 1px solid #bbb;
+	}
+	th, td {
+		border-right: 1px solid #bbb;
+		&:last-child {
+			border-right: none;
+		}
+	}
+	&.table > thead > tr > th {
+		border-color: #bbb;
+	}
+	td {
+		padding: .2ex 1ex;
+		background: none;
+	}
+	tr.group td {
+		border-top: 1px solid #bbb;
+		border-bottom: 1px solid #bbb;
+		font-weight: bold;
+	}
+	tr.odd {
+		background-color: #eee;
+	}
+	tr.even, tr.even input {
+		background: none !important;
+	}
+	td.selector {
+		width: 1%;
+		text-align: center;
+		vertical-align: middle;
+	}
+	tbody tr.group.catselect_blog__current td {
+		background: #31b0d5;
+		color: #FFF;
+	}
+	.catsel_name label {
+		font-weight: normal;
+	}
+	.catsel_order input {
+		width: 40px;
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+	input[type=text] {
+		height: 25px;
+	}
+}
+
+// Raty icons (stars)
+.raty_star_on, .raty_star_off, .raty_cancel_on, .raty_cancel_off {
+	background: url(../icons/icons_sprite.png) no-repeat 0 -208px;
+	width: 16px;
+	height: 16px;
+	display: inline-table;
+}
+.raty_star_off {
+	background-position: -16px -208px;
+}
+.raty_cancel_on {
+	background-position: -32px -208px;
+}
+.raty_cancel_off {
+	background-position: -48px -208px;
+}
+
+div.item_location {
+	margin: 1ex 0;
+}
+
+#ProfileForm {
+	position: relative;
+	min-height: 180px;
+}
+.profile_pictured_fieldsets {
+	min-height: 130px;
+	padding-right: 170px; /* leave space for the profile picture */
+}
+
+// Table groups of contacts in disp=users
+.user_contacts_groups th {
+	font-weight: normal;
+	font-style: italic;
+}
+.user_contacts_groups td, .user_contacts_groups th {
+	vertical-align: top;
+	padding: 0 0 0 4px;
+}
+.user_contacts_groups td {
+	white-space: nowrap;
+}
+.user_contacts_groups br {
+	clear: both;
+}
+.user_contacts_groups .col1 {
+	padding: 0 4px 0 0;
+	border-right: 2px solid #666;
+}
+.user_contacts_groups table{
+	width: 100%;
+}
+.user_contacts_groups table th {
+	padding: 0 0 0 8px;
+	text-align: left;
+	font-style: normal;
+}
+.user_contacts_groups table td {
+	width: 13px;
+	padding: 0;
+	font-style: normal;
+}
+
+.user_contacts_groups .col1 table th {
+	padding: 0 8px 0 0;
+}
+
+#edit_group_contacts {
+	margin-top: 1em;
+	border: 1px solid #BBB;
+	background: #D4D4D4;
+	padding: 0 5px 5px 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	border-radius: 4px;
+}
+#edit_group_contacts label{
+	padding-right: 5px;
+}
+
+// jQuery Tokeninput plugin
+#ffield_item_tags ul.token-input-list-facebook {
+	width: 100%;
+	max-width: 100%;
+}
+
+// Not published comments display
+.evo_content_block span {
+	&.status_published,
+	&.status_community,
+	&.status_protected,
+	&.status_review,
+	&.status_private,
+	&.status_draft,
+	&.status_deprecated,
+	&.status_redirected,
+	&.status_trash {
+		background: transparent;
+		width: 75px;
+		height: 75px;
+		display: block;
+		position: relative;
+		overflow: hidden;
+		span {
+			display: block;
+			width: 120px;
+			text-align: center;
+			padding: 3px 0;
+			position: relative;
+			font-size: 9pt;
+			top: 15px;
+			left: -12px;
+			-webkit-transform: rotate(45deg);
+			-moz-transform: rotate(45deg);
+			-o-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(SizingMethod='auto expand', M11=0.7071067811865476, M12=-0.7071067811865475, M21=0.7071067811865475, M22=0.7071067811865476)"; /* IE8 */
+		}
+	}
+}
+
+.note.status_draft span,		// This is deprecated
+.evo_status__draft {				// This is clean
+	color: #000 !important;
+	background-color: #ff9 !important;
+}
+.note.status_review span,		// This is deprecated
+.evo_status__review {			// This is clean
+	color: #fff !important;
+	background-color: #CC0099 !important;
+}
+.note.status_community span,	// This is deprecated
+.evo_status__community {		// This is clean
+	color: #fff !important;
+	background-color: #2E8BB9 !important;
+}
+.note.status_protected span,	// This is deprecated
+.evo_status__protected {		// This is clean
+	color: #fff !important;
+	background-color: #FF9C2A !important;
+}
+.note.status_private span,		// This is deprecated
+.evo_status__private {			// This is clean
+	color: #fff !important;
+	background-color: #DC143C !important;
+}
+.note.status_published span,	// This is deprecated
+.evo_status__published {		// This is clean
+	color: #000 !important;
+	background-color: #99EE44 !important;
+}
+.note.status_deprecated span,	// This is deprecated
+.evo_status__deprecated {		// This is clean
+	color: #fff !important;
+	background-color: #000 !important;
+}
+.note.status_redirected span,	// This is deprecated
+.evo_status__redirected {		// This is clean
+	color: #fff !important;
+	background-color: #663399 !important;
+}
+.note.status_trash span,		// This is deprecated
+.evo_status__trash {				// This is clean
+	color: #fff !important;
+	background-color: #f66 !important;
+}
+.note.status_meta span,			// This is deprecated
+.evo_status__meta {				// This is clean
+	color: #fff !important;
+	background-color: #5bc0de !important;
+}
+
+div.results {
+	.status_draft,
+	.status_review,
+	.status_community,
+	.status_protected,
+	.status_private,
+	.status_published,
+	.status_deprecated,
+	.status_redirected,
+	.status_trash,
+	.status_meta {
+		span {
+			text-align: center;
+			padding: 3px 0;
+			font-size: 11px;
+			font-weight: bold;
+			border: 1px solid #FFFFFF;
+			border-radius: 12px 12px 12px 12px;
+			float: left;
+			width: 80px;
+		}
+	}
+}
+
+.search_title {
+	font-size: 125%;
+	color: #666;
+}
+.search_title {
+	a {
+		text-decoration: underline;
+	}
+	.label a {
+		color: #FFF;
+		&:hover {
+			color: #abc6e0;
+		}
+	}
+}
+.search_result {
+	padding: 15px 15px 5px;
+}
+.search_result_score {
+	float: left;
+	width: 40px;
+	font-size: 100%;
+	line-height: 27px;
+}
+.search_content_wrap {
+	margin-left: 40px;
+}
+.search_score_map {
+	margin-left: 55px;
+}
+
+.track_content {
+	margin: 5px;
+}
+
+// Visibility of status banners and buttons depending on comment status
+// It is used for example on forums skins where we use AJAX to change a comment status.
+//     On AJAX success result we change only a visibility of the status banners and buttons
+//     and we do NOT reload a comment content
+.vs_published,
+.vs_community,
+.vs_protected,
+.vs_private,
+.vs_review,
+.vs_draft {
+	.evo_status {
+		// Hide all status banners by default in order to show only current
+		display: none;
+	}
+	a.btn[class*='btn_lower_status_'], a.btn[class*='btn_raise_status_'] {
+		// Hide all status buttons by default
+		display: none;
+		&.btn_next_status {
+			// Make visible only the active buttons (for previous and next allowed statuses)
+			display: inline-block;
+		}
+	}
+}
+.vs_published .evo_status__published,
+.vs_community .evo_status__community,
+.vs_protected .evo_status__protected,
+.vs_private .evo_status__private,
+.vs_review .evo_status__review,
+.vs_draft .evo_status__draft {
+	// Make visible banner status only of the current status
+	display: block;
+}
+
+// Photo Index widget
+.evo_image_index {
+	margin: 1ex auto;
+	text-align: center;
+}
+.evo_image_index div {
+	display: inline-block;
+	background: #DDD;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #999;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-khtml-border-radius: 2px;
+	border-radius: 2px;
+	padding: 2px;
+	margin: 2px 2px 1px 1px;
+}
+.evo_image_index div:hover {
+	background: #EEE;
+}
+.evo_image_index div span {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.form_add_contacts .controls {
+	white-space: nowrap;
+	padding-left: 31px;
+	display: inline-block;
+}
+
+// Comment edit form:
+form#comment_edit {
+	clear: both;
+}
+
+// Post/comment attachment blocks:
+#post_attachments, #comment_attachments {
+	.panel-body {
+		padding: 0;
+	}
+}
+.attachment_list.results {
+	margin: 0;
+	.table-bordered {
+		border: none;
+		margin: 0;
+	}
+}
+
+#download_timer_js, #download_info_nojs {
+	font-size: 84%;
+}
+
+// Profile page:
+.profile_content {
+	max-width: 960px;
+	margin: auto;
+}
+.profile_column_left {
+	float: left;
+	width: 300px;
+	max-width: 300px;
+}
+.profile_column_right {
+	margin-left: 320px;
+	#fieldset_user_fields {
+		overflow: hidden;
+	}
+}
+.profile_column_right legend.panel-heading {
+	padding: 10px 15px;
+}
+@media (max-width: 1199px) {
+	.profile_content {
+		.col-sm-3 {
+			width: 35%;
+		}
+		.col-sm-9 {
+			width: 65%;
+		}
+	}
+}
+@media (max-width: 767px) {
+	.profile_column_left {
+		margin: 0 auto;
+		float: none;
+		width: 100%;
+		.loadimg {
+			width: 100%;
+		}
+	}
+	.profile_column_right {
+		margin-left: 0;
+		width: 100%;
+		float: left;
+	}
+	.evo_comment .panel-title.pull-right { // On BS Blog skin aligns items in comments > panel-title
+		float: none !important;
+		clear: both;
+	}
+}
+@media (max-width: 375px) {
+	.evo_form .control-buttons .submit, .evo_form .control-buttons .preview { // Separates form buttons on low resolution when they are not inline
+		margin-bottom: 4px;
+	}
+}
+// Widgets on profile page (disp=user):
+.widget_core_user_info {
+	&.evo_user_info_name,
+	&.evo_user_info_nickname,
+	&.evo_user_info_login {
+		font-size: 30px;
+		font-weight: 500;
+		line-height: 1.1;
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+	&.evo_user_info_name {
+		font-size: 36px;
+	}
+	&.evo_user_info_login {
+		color: #777;
+	}
+	&.evo_user_info_gender,
+	&.evo_user_info_location,
+	&.evo_user_info_orgs {
+		margin-bottom: 10px;
+	}
+	&.evo_user_info_location {
+		white-space: nowrap;
+	}
+}
+.widget_core_user_profile_pics {
+	&.evo_user_profile_pics_main,
+	&.evo_user_profile_pics_other {
+		img {
+			.border-radius;
+		}
+	}
+	&.evo_user_profile_pics_other {
+		text-align: left;
+		margin-bottom: 10px;
+		a {
+			display: inline-block;
+			vertical-align: top;
+			margin: 0 0.5em 0.5em 0;
+		}
+	}
+}
+.widget_core_user_action {
+	margin-bottom: 10px;
+	.btn, &.btn-group {
+		width: 100%;
+	}
+	&.btn-group .btn {
+		width: 50%;
+	}
+	a.btn button {
+		background: none;
+		border: none;
+		padding: 0;
+	}
+}
+
+// Standard style for all tables of content:
+.evo_content_block {
+	table {
+		margin: 1em 0;
+		th {
+			border: 1px solid #ddd;
+			padding: 8px;
+			background-color: #eee;
+		}
+		td {
+			border: 1px solid #ddd;
+			padding: 8px;
+			vertical-align: top;
+		}
+		&.evo_poll__table {
+			td {
+				border: 0;
+				padding: 2px 10px 2px 0;
+			}
+		}
+		&.item_custom_fields {
+			margin-bottom: 10px;
+			th, td {
+				vertical-align: middle;
+			}
+		}
+	}
+}
+
+// Item custom fields in RWD style:
+div.item_custom_fields {
+	div.row {
+		margin-top: 8px;
+		word-break: break-all;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+
+// Fix the form elements:
+.evo_form__comment {
+	.panel {
+		margin: 0;
+		border: none;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		.panel-body {
+			padding: 0;
+		}
+	}
+	.panel-body .alert {
+		&.alert-primary, &.alert-success, &.alert-info, &.alert-warning, &.alert-danger {
+			margin: 0px;
+			padding: 10px 15px;
+		}
+	}
+	.bg-warning {
+		margin: 0px !important;
+	}
+}
+#cmntform_links, #meta_cmntform_links {
+	.panel {
+		margin-bottom: 20px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		.panel-body {
+			padding: 0;
+		}
+	}
+	table {
+		margin: 0;
+	}
+}
+.form-horizontal {
+	.form-group, .custom_content {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	fieldset {
+		margin-top: 0;
+	}
+	input[type=file] {
+		display: inline;
+	}
+}
+#comment_date_field {
+	input {
+		width: 80px;
+	}
+	label {
+		font-weight: normal;
+	}
+}
+.form-group[id^="ffield_uploadfile"] .controls {
+	padding-top: 5px;
+	input {
+		line-height: 10px;
+	}
+}
+
+// Comment template:
+.comment_rating {
+	margin-top: 2px;
+}
+#comment_edit .comment_rating {
+	margin-top: 9px;
+}
+#comment_preview {
+	background-color: #FFF;
+}
+#comment_date_field .panel {
+	border: none;
+	box-shadow: none;
+	margin-bottom: 0;
+	.panel-body {
+		padding: 0;
+		.control-label {
+			font-weight: bold;
+		}
+		.controls .form-group {
+			display: inline-block;
+			padding-left: 15px;
+			margin-bottom: 0;
+		}
+	}
+}
+
+// Images gallery:
+.evo_post_gallery__image {
+	display: inline-block;
+	margin: 0 1em 1em 0;
+}
+
+// Post workflow properties form:
+.evo_item_workflow_form .evo_item_workflow_form__fields {
+	display: flex;
+	display: -webkit-flex;
+	justify-content: space-around;
+	-webkit-justify-content: space-around;
+	flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	.form-group {
+		display: inline-block;
+		.control-label {
+			width: auto;
+		}
+		.controls {
+			display: inline-block;
+			width: auto;
+		}
+	}
+	.btn {
+		margin-bottom: 15px;
+	}
+}
+
+// Poll table:
+.evo_poll__question {
+	font-weight: bold;
+}
+.evo_poll__table {
+	margin-bottom: 14px;
+	width: 100%;
+	td {
+		padding: 2px 10px 2px 0;
+		vertical-align: top;
+	}
+	td.evo_poll__title label {
+		font-weight: normal;
+	}
+	tr td:last-child {
+		padding-right: 0;
+	}
+	input[type=radio], label {
+		margin: 0;
+	}
+	.evo_poll__percent_bar {
+		width: 100%;
+		min-width: 40px;
+		padding-right: 6px;
+		> div {
+			width: 100%;
+			vertical-align: middle;
+			display: inline-block;
+			> div {
+				background: #ffcc66;
+				height: 12px;
+				min-width: 1px;
+			}
+		}
+	}
+	.evo_poll__selector {
+		width: 5px;
+	}
+	.evo_poll__title {
+		white-space: nowrap;
+	}
+	.evo_poll_percentage {
+		max-width: 50px;
+	}
+}
+.evo_container__sidebar .evo_poll__title {
+	white-space: normal;
+}
+
+// Attachments table:
+#itemform_links, #cmntform_links {
+	.panel {
+		overflow: hidden;
+	}
+	.panel-body {
+		padding: 0;
+	}
+}
+div.qq-upload-button {
+	border: 2px dashed #fff;
+	background: #5bc0de;
+	.border-radius(9px);
+}
+div.qq-upload-drop-area {
+	padding: 7px 0;
+	text-align: center;
+	color: transparent;
+	background: transparent;
+	font-weight: bold;
+	> div > span {
+		font-weight: normal;
+		font-size: small;
+		margin-top: 2px;
+	}
+}
+div.qq-upload-button-hover {
+	background: #5cb85c;
+}
+div.qq-upload-button-dragover {
+	background: #efbd5b !important;
+}
+ul.qq-upload-list {
+	margin: 0;
+}
+div.evo_fileuploader_form {
+	padding: 5px;
+	height: 65px;
+	background: #f5f5f5;
+}
+.evo_attachments_fieldset__wrapper {
+	width: 100%;
+	height: 97px;
+	position: relative;
+	padding-bottom: 6px;
+	box-sizing: content-box;
+	.evo_attachments_fieldset__block {
+		overflow: auto;
+		height: 100%;
+	}
+	.ui-resizable-s {
+		background: #c0c0c0;
+		height: 6px;
+		bottom: 0;
+		&::after {
+			content: "...";
+			font-size: 10px;
+			top: -7px;
+			position: relative;
+			text-align: center;
+			display: block;
+		}
+	}
+	.table_scroll {
+		// Use this position to fix red triangle when attachment is dragged by mouse:
+		position: relative;
+	}
+	div.results, div.table_scroll {
+		overflow: initial;
+	}
+	table tbody {
+		.dragged {
+			opacity: 0.8;
+			position: absolute;
+			z-index: 1000;
+		}
+		td {
+			cursor: move;
+		}
+	}
+	.evo_attachments_fieldset__overlay {
+		position: absolute;
+		top: -43px;
+		z-index: 1;
+		width: 100%;
+		height: 140px;
+		background: rgba( 0, 0, 0, 0.5 );
+		color: #FFF;
+		text-align: center;
+		font-size: 200%;
+		b {
+			width: 100%;
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+@media (max-width: 768px) {
+	.evo_attachments_fieldset__wrapper {
+		.evo_attachments_fieldset__overlay {
+			font-size: 170%;
+		}
+	}
+}
+@media (max-width: 431px) {
+	.evo_attachments_fieldset__wrapper {
+		.evo_attachments_fieldset__overlay {
+			top: -65px;
+			height: 162px;
+			font-size: 140%;
+		}
+	}
+}
+
+.evo_attachments_tab_pane__wrapper {
+	width: 100%;
+	height: auto;
+	position: relative;
+	padding-bottom: 6px;
+	box-sizing: content-box;
+	.evo_attachments_fieldset__block {
+		overflow: auto;
+		height: 100%;
+	}
+	.ui-resizable-s {
+		background: #c0c0c0;
+		height: 6px;
+		bottom: 0;
+		&:after {
+			content: "...";
+			font-size: 10px;
+			top: -7px;
+			position: relative;
+			text-align: center;
+			display: block;
+		}
+	}
+	.table_scroll {
+		// Use this position to fix red triangle when attachment is dragged by mouse:
+		position: relative;
+	}
+	div.results, div.table_scroll {
+		overflow: initial;
+	}
+	table tbody {
+		.dragged {
+			opacity: 0.8;
+			position: absolute;
+			z-index: 1000;
+		}
+		td {
+			cursor: move;
+		}
+	}
+	.evo_attachments_fieldset__overlay {
+		position: absolute;
+		top: -43px;
+		z-index: 1;
+		width: 100%;
+		height: 140px;
+		background: rgba( 0, 0, 0, 0.5 );
+		color: #FFF;
+		text-align: center;
+		font-size: 200%;
+		b {
+			width: 100%;
+			margin: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
+@media (max-width: 768px) {
+	.evo_attachments_tab_pane__wrapper {
+		.evo_attachments_fieldset__overlay {
+			font-size: 170%;
+		}
+	}
+}
+@media (max-width: 431px) {
+	.evo_attachments_tab_pane__wrapper {
+		.evo_attachments_fieldset__overlay {
+			top: -65px;
+			height: 162px;
+			font-size: 140%;
+		}
+	}
+}
+.filelist_tbody {
+	tr:first-child .action_icon_link_move_up,
+	tr:last-child .action_icon_link_move_down {
+		visibility: hidden;
+	}
+}
+
+// Widget forms:
+.evo_widget_form__compact, .evo_widget_form__nolabels {
+	margin-bottom: -15px; // to remove bottom margin from the last form-group of submit button
+	label.control-label {
+		text-align: left;
+		width: auto;
+		padding: 0;
+	}
+	.controls {
+		width: 100%;
+	}
+	.form_text_input.form-control {
+		width: 100%;
+		&.inline_widget {
+			width: 100%;
+			max-width: 250px;
+		}
+	}
+	.control-buttons {
+		margin: 0;
+		padding: 0;
+		.btn {
+			margin: 0;
+		}
+	}
+}
+.evo_widget_form__nolabels {
+	label.control-label {
+		display: none;
+	}
+}
+.evo_widget_form__inline, .evo_widget_form__grouped {
+	label.control-label {
+		display: none;
+		float: none;
+	}
+	div {
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+		width: auto;
+	}
+	input.btn {
+		margin: 0;
+	}
+}
+.evo_widget_form__inline {
+	div.controls, div.control-buttons {
+		float: none;
+		margin-bottom: 4px;
+		.form-control {
+			width: 100%;
+		}
+	}
+}
+.evo_widget_form__grouped {
+	.controls {
+		input {
+			border-radius: 0;
+			vertical-align: top;
+		}
+		input:not(:last-child) {
+			border-right: none;
+		}
+		input:first-child {
+			border-radius: 4px 0 0 4px;
+		}
+		input:last-child {
+			border-radius: 0 4px 4px 0;
+		}
+		select {
+			-webkit-border-radius: 0;
+			border: 0;
+			outline: 1px solid #ccc;
+			outline-offset: -1px;
+			vertical-align: top;
+		}
+	}
+}
+
+// Widget "Menu link or button":
+.evo_widget.widget_core_basic_menu_link {
+	img {
+		margin-top: -2px;
+	}
+}
+// Item form tab pane text colors: 
+.evo_tab_pane_itemform_content {
+	.tab_pane_pads {
+		.btn-primary {
+			color: #fff !important;
+		}
+		a {
+			color: #337ab7 !important;
+		}
+	}
+}

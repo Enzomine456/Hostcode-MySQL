@@ -1,0 +1,254 @@
+/**
+ * @todo yabs > : this needs sorting out once everything works
+ */
+#save_layout{
+float:left;
+margin:0 2em 0 0;
+}
+
+.widget_container{
+	margin:0;
+	padding:0;
+	list-style:none;
+	border: 1px solid #9DB0BC;
+	display: table;
+	width: 100%;
+}
+
+.widget_container li{
+	margin:0;
+	padding: 3px 10px;
+	display: table-row;
+}
+.widget_container li > span {
+	display: table-cell;
+	width: 1%;
+	white-space: nowrap;
+}
+.widget_container li > span.widget_title {
+	width: 100%;
+	white-space: normal;
+}
+
+.widget_state, .widget_checkbox {
+	border-right: 1px solid #9DB0BC;
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+.widget_actions, span.widget_cache_status {
+	border-left:1px solid #9DB0BC;
+	margin-left:10px;
+	padding-left:10px;
+	cursor:default;
+}
+#customizer_wrapper .widget_container li > span.widget_actions {
+	white-space: normal;
+	text-align: center;
+}
+td.widget_cache_status, span.widget_cache_status {
+	width: 40px;
+	text-align: center;
+}
+
+.widget_actions img{
+margin:0 2px;
+}
+
+.odd{
+background-color:#F1F6F8;
+color:#444;
+}
+
+.even{
+background-color:#fff;
+color:#444;
+}
+
+.odd:hover{
+background-color:#eef;
+color:#444;
+}
+
+.even:hover{
+background-color:#dde;
+color:#444;
+}
+
+/*
+#current_widgets .droppable-hover,
+#current_widgets .droppable-hover .fieldset_title_right,
+#current_widgets .droppable-hover .fieldset_title_bg
+{
+color:#444;
+background:#ee8;
+}
+*/
+.widget_container li.droppable-hover > span,
+#current_widgets div.ui-droppable.droppable-hover {
+	position: relative;
+}
+.widget_container li.droppable-hover > span:first-child::before,
+div.ui-droppable.droppable-hover:before {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 0;
+	border: 6px solid transparent;
+	border-left-color: #f00;
+	border-right: none;
+	left: 0;
+	bottom: -7px;
+}
+.widget_container li.droppable-hover > span:after,
+div.ui-droppable.droppable-hover:after {
+	content: "";
+	position: absolute;
+	width: 102%;
+	height: 2px;
+	background: #F00;
+	left: 0;
+	bottom: -2px;
+}
+div.ui-droppable.droppable-hover:after {
+	width: 100%;
+}
+
+.add_widget{
+	background:#ddd;
+}
+
+.add_new_widget{
+cursor:pointer;
+margin:0 0 0 1em;
+}
+
+.draggable_widget{
+cursor:move;
+}
+
+#current_widgets{
+padding:0;
+border:0;
+clear:both;
+}
+
+.available_widgets{
+	top: 40px;
+	left: 5%;
+	right: 5%;
+	bottom: 5%;
+	position: fixed;
+	background:#f1f6ff;
+	display:none;
+	border: 1px solid #9DB0BC;
+	margin:0;
+	padding:0;
+	z-index: 999;
+}
+
+.available_widgets_active{
+display:block;
+}
+
+.available_widgets_toolbar{
+	background:#B7CBDA;
+	font-weight: bold;
+	padding: 2px 1ex;
+	border-bottom: 1px solid #9DB0BC;
+}
+
+#available_widgets_inner{
+	padding: 1em;
+	overflow: auto;
+	position: fixed;
+	top: 62px;
+	left: 5%;
+	right: 5%;
+	bottom: 5%;
+}
+
+.available_widgets h2 {
+	display:none;
+}
+
+/**
+ * Widget settings page
+ */
+#screen_mask{
+position:fixed;
+top: 0;
+left: 0;
+background: #000;
+height: 100%;
+width: 100%;
+display:none;
+z-index:998;
+}
+
+#widget_settings{
+display:none;
+}
+
+#widget_settings.widget_settings_active{
+position:fixed;
+top:40px;
+bottom:5%;
+right:5%;
+left:5%;
+overflow:auto;
+z-index:999;
+background:#f1f6f8;
+border:1px solid #ccc;
+display:block;
+}
+
+.widget_settings_active form{
+padding:1em;
+}
+
+#widget_postback{
+position:absolute;
+top:-1000em;
+left:-1000em;
+}
+
+/**
+ * widget help
+ */
+#widget_help{
+float:right;
+position:relative;
+}
+
+#widget_help dl{
+position:absolute;
+width:40em;
+padding:1em;
+display:none;
+border:1px solid #ccc;
+background:#f1f6ff;
+right:0;
+top:-1em;
+}
+
+#widget_help:hover dl{
+display:block;
+}
+
+#widget_help dt{
+font-weight:bold;
+}
+
+#widget_help dd{
+margin:0;
+padding:0 0 10px 10px;
+}
+
+.pending_update{
+background-color:#fdd;
+}
+
+.server_updating{
+background-color:#dfd;
+}

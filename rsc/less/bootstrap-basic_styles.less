@@ -1,0 +1,221 @@
+/*
+ * These are now the real basic styles that once used to be in basic.css
+ * These are included in basic.css but also in item_base.css so they are available in WYSIWYG editors
+ */
+
+@import "inc/text_styles.inc.less";
+@import "inc/image_styles.inc.less";
+@import "inc/block_styles.inc.less";
+@import "inc/blockquote.inc.less";
+
+@import "inc/sprite_flags.inc.less";
+@import "inc/sprite_icons.inc.less";
+
+@import "inc/fontawesome_icons.inc.less";
+@import "inc/loader.inc.less";
+
+@import "inc/visibility_status_colors.inc.less";
+
+@import "inc/userfield_icons.inc.less";
+
+@import "inc/current_filters.inc.less";
+// Bootstrap specific Styles of filters for current selection of the posts (widget "Current filters"):
+.filter_item div {
+	height: 24px !important;
+	line-height: 18px !important;
+}
+div.filters .filter_item {
+	margin: 1px;
+	div {
+		margin: 0;
+	}
+}
+
+// Break all long words:
+.linebreak {
+	word-break: break-all;
+	white-space: normal;
+}
+
+// ------
+
+// Meta categories that appears on categories widget:
+.widget_core_coll_category_list {
+	label {
+		font-weight: normal;
+	}
+	ul {
+		margin-left: 0;
+		ul {
+			margin-left: 19px;
+		}
+	}
+	li {
+		list-style: none;
+	}
+	input[type="checkbox"], input[type="radio"] {
+		margin: 0;
+		display: inline-block;
+	}
+	.evo_cat_meta {
+		list-style: square;
+		margin-left: 20px;
+		> label, > a {
+			font-weight: bold;
+			color: #000;
+		}
+		ul {
+			font-weight: normal;
+		}
+		input[disabled="disabled"] {
+			display: none;
+		}
+	}
+	.tile label {
+		display: inline;
+	}
+}
+
+// ---------------- //
+
+// Internal comments:
+.evo_comment__meta {
+	border: 2px solid @status_color_meta;
+	&:last-child {
+		margin-bottom: 0;
+	}
+	.panel-heading {
+		border-bottom: 1px solid @status_color_meta;
+		background-color: @status_color_meta_bg;
+	}
+	.panel-footer {
+		border-top: 1px solid @status_color_meta;
+		background-color: @status_color_meta_bg;
+	}
+}
+.panel-meta {
+	border: 2px solid @status_color_meta;
+	.panel-heading {
+		border-bottom: 1px solid @status_color_meta;
+		background-color: @status_color_meta_bg;
+	}
+	.panel-body {
+		background-color: @status_color_meta_bg;
+	}
+	.btn-toolbar {
+		background-color: darken(@status_color_meta_bg, 10%) !important;
+	}
+}
+
+// Voting panel on items, comments and etc.:
+.evo_voting_panel {
+	> span.fa {
+		margin-right: 4px;
+		margin-left: 2px;
+	}
+}
+
+// Button toolbar label
+.btn-toolbar {
+	.btn-toolbar-title {
+		margin-top: 1px;
+		margin-bottom: 2px;
+	}
+}
+
+// Style for comment quick moderation
+.evo_form__comment_review {
+	.comment_avatar {
+		float: left;
+		margin: 0 10px 10px 0;
+		img.user {
+			border-radius: 50%;
+		}
+	}
+	h3.comment_title {
+		font-size: 16px;
+		margin: 0;
+	}
+}
+
+// Affixed messages
+.msg_wrapper {
+	.affix {
+		div.alert {
+			box-shadow: 1px 10px 35px rgba(75, 75, 75, 0.75);
+		}
+	}
+}
+
+// Affixed publish buttons
+div#publish_buttons {
+	border-radius: 4px;
+	padding: 5px;
+	text-align: center;
+	.quick-publish {
+		margin-left: 5px;
+	}
+	.PreviewButton {
+		margin-right: 10px;
+	}
+}
+.publish_buttons_wrapper {
+	div#publish_buttons.affix {
+		background-color: #ffffff;
+		box-shadow: 1px 10px 35px rgba(75, 75, 75, 0.75);
+		z-index: 99999;
+	}
+}
+
+// Fieldset folding for Category selection
+tbody.fieldset_wrapper.folded+tbody[id^=cat_sel_] {
+	display: none;
+}
+
+// Set fixed width for color selector to don't use full width:
+.input-group.colorpicker-component {
+	width: 100px;
+	display: inline-table;
+	vertical-align: middle;
+}
+
+// Tab pane for content form
+.content-form-with-tab {
+	.tab-content {
+		border: 1px solid #ddd;
+		border-width: 0 1px 1px;
+		padding: 1px;
+		.tab_pane_no_pads {
+				.pull-left, .pull-right {
+							line-height: 36px;
+							padding-right: 15px;
+							padding-left: 10px;
+							padding-bottom: 5px;
+				}
+		}
+		
+		.tab_pane_pads {
+				.pull-left, .pull-right {
+							color: #333;
+							line-height: 36px;
+							padding-bottom: 5px;
+				}
+				padding: 0 15px 15px 15px;
+		}
+		
+		.tab_pane_no_pads a, .tab_pane_pads a {
+				color: #333;
+		}
+	}
+	.badge {
+		margin-top: -1px;
+	}
+	.results_summary {
+		margin-top: 0px;
+		margin-right: 5px;
+		font-weight: normal;
+	}
+	.results_header{
+		display: none;
+	}
+}
