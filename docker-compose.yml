@@ -1,53 +1,45 @@
-version: "3.8"
+version: '3.8'
 
 services:
   web:
     build: .
+    container_name: hostcode_web
     ports:
-      - "8080:80"
+      - "8080:80"        # Acessa o CMS no localhost:8080
     volumes:
-      - ./src:/var/www/html   # seu código CMS aqui na pasta src
-    environment:
-      # Ajuste as variáveis conforme seu CMS precisar
-      # Exemplo para conexão ao banco:
-      - DB_HOST=db
-      - DB_NAME=hostcode_db
-      - DB_USER=hostcode_user
-      - DB_PASS=hostcode_pass
+      - ./src:/var/www/html  # Monta seu código fonte local na pasta do apache
     depends_on:
       - db
-    networks:
-      - hostcode-network
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=hostcodeuser
+      - MYSQL_PASSWORD=hostcodepass
+      - MYSQL_DATABASE=hostcodedb
 
   db:
     image: mysql:8.0
+    container_name: hostcode_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass123    # senha root, mude para produção!
-      MYSQL_DATABASE: hostcode_db         # nome do banco para o CMS
-      MYSQL_USER: hostcode_user           # usuário do banco
-      MYSQL_PASSWORD: hostcode_pass       # senha do usuário
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: hostcodedb
+      MYSQL_USER: hostcodeuser
+      MYSQL_PASSWORD: hostcodepass
     volumes:
       - db_data:/var/lib/mysql
-    networks:
-      - hostcode-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: hostcode_phpmyadmin
     restart: always
     ports:
-      - "8081:80"  # phpMyAdmin disponível em localhost:8081
+      - "8081:80"   # phpMyAdmin acessível em localhost:8081
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootpass123
+      PMA_USER: root
+      PMA_PASSWORD: rootpass
     depends_on:
       - db
-    networks:
-      - hostcode-network
 
 volumes:
   db_data:
-
-networks:
-  hostcode-network:
-    driver: bridge
