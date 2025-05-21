@@ -1,7 +1,7 @@
 {
   "name": "Hostcode-MySQL",
   "version": "7.2.1-beta",
-  "description": "Projeto :Hostcode-MySQL gerenciamento de módulos com Grunt para tarefas automatizadas CSS/JS.",
+  "description": "Projeto Hostcode-MySQL gerenciamento de módulos com Grunt para tarefas automatizadas CSS/JS.",
   "repository": {
     "type": "git",
     "url": "https://github.com/b2evolution/b2evolution.git"
@@ -38,8 +38,8 @@
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-eslint": "^23.0.0",
     "grunt-markdown": "^0.7.0",
-    "grunt-sass": "^3.1.0",
-    "grunt-eslint": "^23.0.0"
+    "grunt-sass": "^3.1.0"
   }
 }
