@@ -7,7 +7,9 @@ module.exports = function(grunt) {
         // LESS compilation
         less: {
             development: {
-                options: { compress: false },
+                options: {
+                    compress: false
+                },
                 files: {
                     'build/css/style.css': 'src/less/style.less'
                 }
@@ -86,7 +88,6 @@ module.exports = function(grunt) {
                 options: { spawn: false }
             }
         }
-
     });
 
     // Load plugins
@@ -98,7 +99,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-markdown');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    // Custom task groups
+    // Register tasks
     grunt.registerTask('default', ['less', 'autoprefixer', 'concat', 'cssmin', 'uglify', 'markdown']);
     grunt.registerTask('styles', ['less', 'autoprefixer', 'concat:css', 'cssmin']);
     grunt.registerTask('scripts', ['concat:js', 'uglify']);
