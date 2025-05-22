@@ -612,8 +612,10 @@ module.exports = function(grunt) {
     // Aqui você pode colocar configurações, se necessário
   });
 
-  // Registrar a task 'test' (pode ser vazia ou mostrar mensagem)
+module.exports = function(grunt) {
+  grunt.initConfig({});
+
   grunt.registerTask('test', function() {
-    grunt.log.writeln('Task test executada com sucesso.');
+    grunt.log.writeln('Task test executada.');
   });
 };
