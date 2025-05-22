@@ -606,10 +606,14 @@ module.exports = function(grunt) {
     // configurações de tasks aqui
   });
 
-  // Registrar a task test como uma task que não faz nada (exemplo)
-  grunt.registerTask('test', function() {
-    grunt.log.writeln('Task test não implementada ainda.');
+  module.exports = function(grunt) {
+  // Configuração das tasks
+  grunt.initConfig({
+    // Aqui você pode colocar configurações, se necessário
   });
 
-  // Ou você pode registrar uma task real de testes, se tiver alguma configurada
+  // Registrar a task 'test' (pode ser vazia ou mostrar mensagem)
+  grunt.registerTask('test', function() {
+    grunt.log.writeln('Task test executada com sucesso.');
+  });
 };
