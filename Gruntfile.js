@@ -1,22 +1,16 @@
 module.exports = function(grunt) {
-
-    // Project configuration
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        // LESS compilation
         less: {
             development: {
-                options: {
-                    compress: false
-                },
+                options: { compress: false },
                 files: {
                     'build/css/style.css': 'src/less/style.less'
                 }
             }
         },
 
-        // Autoprefix CSS
         autoprefixer: {
             options: {
                 browsers: ['last 2 versions', 'ie 9']
@@ -27,7 +21,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Concatenate CSS and JS
         concat: {
             css: {
                 src: ['build/css/style.prefixed.css'],
@@ -39,7 +32,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Minify CSS
         cssmin: {
             target: {
                 files: {
@@ -48,7 +40,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Minify JS
         uglify: {
             target: {
                 files: {
@@ -57,7 +48,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Markdown to HTML
         markdown: {
             all: {
                 files: [{
@@ -70,7 +60,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // Watch for changes
         watch: {
             styles: {
                 files: ['src/less/**/*.less'],
@@ -90,7 +79,6 @@ module.exports = function(grunt) {
         }
     });
 
-    // Load plugins
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -99,7 +87,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-markdown');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    // Register tasks
     grunt.registerTask('default', ['less', 'autoprefixer', 'concat', 'cssmin', 'uglify', 'markdown']);
     grunt.registerTask('styles', ['less', 'autoprefixer', 'concat:css', 'cssmin']);
     grunt.registerTask('scripts', ['concat:js', 'uglify']);
