@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
     unzip \
     && docker-php-ext-install mysqli pdo pdo_mysql zip \
@@ -29,6 +29,7 @@ RUN { \
 } > /usr/local/etc/php/conf.d/custom.ini
 
 RUN mkdir -p /var/log/php && chown -R www-data:www-data /var/log/php
+
 COPY backend/ /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 
