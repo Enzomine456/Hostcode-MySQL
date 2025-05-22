@@ -1,71 +1,58 @@
 module.exports = function(grunt) {
 
-    // Project configuration:
     grunt.initConfig({
-
-        // Read project settings into the pkg property:
-        // (Will allow to refer to the values of the properties below)
         pkg: grunt.file.readJSON('package.json'),
 
-        // Configuration for the less->css compiling tasks:
         less: {
             development: {
-                // Note! The output css files are not compressed on this task
-                options: {
-                    compress: false,
-                    //yuicompress: true,
-                    //optimization: 2
-                },
+                options: { compress: false },
                 files: {
-                    // ... (todo o conteúdo original da task less permanece aqui) ...
+                    'path/to/output.css': 'path/to/input.less'
                 }
-            },
+            }
         },
 
-        // Configuration for Autoprefixing tasks:
         autoprefixer: {
-            // ... (conteúdo original da task autoprefixer) ...
+            options: {
+                browsers: ['last 2 versions', 'ie 9']
+            },
+            single_file: {
+                src: 'path/to/output.css',
+                dest: 'path/to/output.prefixed.css'
+            }
         },
 
-        // Configuration for the concatenate tasks:
         concat: {
-            // ... (conteúdo original da task concat) ...
+            // sua config aqui
         },
 
-        // CSS minification:
         cssmin: {
-            // ... (conteúdo original da task cssmin) ...
+            // sua config aqui
         },
 
-        // Configuration for the uglify minifying tasks:
         uglify: {
-            // ... (conteúdo original da task uglify) ...
+            // sua config aqui
         },
 
-        // Markdown to HTML
         markdown: {
-            // ... (conteúdo original da task markdown) ...
+            // sua config aqui
         },
 
-        // Configuration for the watch tasks:
         watch: {
-            // ... (conteúdo original da task watch) ...
-        },
-
+            // sua config aqui
+        }
     });
 
-    // Load the plugin that provides the tasks:
+    // Load plugins
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks('grunt-autoprefixer');  // cuidado para carregar só o que usa
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-markdown');
 
-    // Task registration:
+    // Register tasks
     grunt.registerTask('default', ['less','autoprefixer','concat','cssmin','uglify','markdown']);
     grunt.registerTask('styles', ['less','autoprefixer','concat','cssmin']);
-
-}; // Final correto do module.exports
+};
