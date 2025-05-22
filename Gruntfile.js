@@ -1,40 +1,40 @@
 module.exports = function(grunt) {
-  // Carrega automaticamente todas as tarefas do Grunt declaradas nas devDependencies
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    // LESS → CSS
     less: {
       development: {
         files: {
-          'build/css/style.css': 'src/less/style.less' // Certifique-se de que este caminho exista
+          'build/css/style.css': 'src/less/style.less'
         }
       }
     },
 
-    // Prefixos automáticos para CSS
-    autoprefixer: {
-      single_file: {
+    postcss: {
+      options: {
+        processors: [
+          require('autoprefixer')()
+        ]
+      },
+      dist: {
         src: 'build/css/style.css',
         dest: 'build/css/style.prefixed.css'
       }
     },
 
-    // Concatenação de arquivos
     concat: {
       css: {
         src: ['build/css/*.css'],
         dest: 'build/css/style.concat.css'
       },
       js: {
-        src: ['src/js/**/*.js'], // ajuste conforme sua estrutura
+        src: ['src/js/**/*.js'],
         dest: 'build/js/app.concat.js'
       }
     },
 
-    // Minificação de CSS
     cssmin: {
       target: {
         files: {
@@ -43,7 +43,6 @@ module.exports = function(grunt) {
       }
     },
 
-    // Minificação de JavaScript
     uglify: {
       target: {
         files: {
@@ -52,30 +51,25 @@ module.exports = function(grunt) {
       }
     },
 
-    // Markdown para HTML (se aplicável)
     markdown: {
       all: {
-        files: [
-          {
-            expand: true,
-            src: 'docs/**/*.md',
-            dest: 'build/html/',
-            ext: '.html'
-          }
-        ]
+        files: [{
+          expand: true,
+          src: 'docs/**/*.md',
+          dest: 'build/html/',
+          ext: '.html'
+        }]
       }
     },
 
-    // Lint de JavaScript com ESLint
     eslint: {
       target: ['src/js/**/*.js']
     },
 
-    // Observador de mudanças
     watch: {
       styles: {
         files: ['src/less/**/*.less'],
-        tasks: ['less', 'autoprefixer', 'concat:css', 'cssmin']
+        tasks: ['less', 'postcss', 'concat:css', 'cssmin']
       },
       scripts: {
         files: ['src/js/**/*.js'],
@@ -83,15 +77,11 @@ module.exports = function(grunt) {
       }
     },
 
-    // Limpa a pasta de build
     clean: {
       build: ['build']
     }
   });
 
-  // Tarefa padrão
-  grunt.registerTask('default', ['less', 'autoprefixer', 'concat', 'cssmin', 'uglify', 'markdown']);
-
-  // Tarefa de build
+  grunt.registerTask('default', ['less', 'postcss', 'concat', 'cssmin', 'uglify', 'markdown']);
   grunt.registerTask('build', ['clean', 'default']);
 };
