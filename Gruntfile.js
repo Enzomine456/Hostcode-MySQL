@@ -1,6 +1,3 @@
-// ---------------------------------------------------------------
-// To get started with Grunt: see http://b2evolution.net/man/grunt
-// ---------------------------------------------------------------
 module.exports = function(grunt) {
 
 	// Project configuration:
@@ -604,5 +601,15 @@ module.exports = function(grunt) {
 	// Default task(s):
 	grunt.registerTask('default', ['less','autoprefixer','concat','cssmin','uglify','markdown']);
 	grunt.registerTask('styles', ['less','autoprefixer','concat','cssmin']);
+module.exports = function(grunt) {
+  grunt.initConfig({
+    // configurações de tasks aqui
+  });
 
+  // Registrar a task test como uma task que não faz nada (exemplo)
+  grunt.registerTask('test', function() {
+    grunt.log.writeln('Task test não implementada ainda.');
+  });
+
+  // Ou você pode registrar uma task real de testes, se tiver alguma configurada
 };
